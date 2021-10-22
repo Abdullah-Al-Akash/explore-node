@@ -2,7 +2,10 @@ const express = require('express');
 const cors = require('cors');
 
 const app = express();
+
 app.use(cors());
+app.use(express.json());
+
 const port = 5000;
 
 app.get('/', (req, res) => {
@@ -46,8 +49,11 @@ app.get('/users', (req, res) => {
 
 // Post Method:
 app.post('/users', (req, res) => {
-        console.log('Hitting on the Server');
-        res.send('Hitting on the Server');
+        const newUser = req.body;
+        newUser.id = users.length;
+        users.push(newUser);
+        // res.send(JSON.stringify(newUser));
+        res.json(newUser);
 })
 
 app.get('/users/:id', (req, res) => {
