@@ -11,19 +11,34 @@ const users = [
                 id: 0, name: '0', username: "0", email: "0@april.biz",
         },
         {
-                id: 1, name: 'A', username: "A", email: "A@april.biz",
+                id: 1, name: 'Akash', username: "A", email: "A@april.biz",
         },
         {
-                id: 2, name: 'B', username: "B", email: "B@april.biz",
+                id: 2, name: 'Batash', username: "B", email: "B@april.biz",
         },
         {
-                id: 3, name: 'C', username: "C", email: "C@april.biz",
+                id: 3, name: 'China', username: "C", email: "C@april.biz",
         }
 ]
 
+// Result Query
 app.get('/users', (req, res) => {
-        res.send(users);
-        console.log(req.query.search);
+        const searchResult = req.query.search;
+        if (searchResult) {
+                const findResult = users.filter(user => user.name.toLocaleLowerCase().includes(searchResult.toLocaleLowerCase()));
+                console.log(findResult.length)
+
+                // Logic If Not Matched Search Item:
+                if (findResult.length) {
+                        res.send(findResult)
+                }
+                else {
+                        res.send(['Sorry! Result Not Found'])
+                }
+        }
+        else {
+                res.send(users)
+        }
 })
 
 app.get('/users/:id', (req, res) => {
