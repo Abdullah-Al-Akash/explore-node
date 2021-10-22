@@ -1,5 +1,8 @@
 const express = require('express');
+const cors = require('cors');
+
 const app = express();
+app.use(cors());
 const port = 5000;
 
 app.get('/', (req, res) => {
@@ -39,6 +42,12 @@ app.get('/users', (req, res) => {
         else {
                 res.send(users)
         }
+})
+
+// Post Method:
+app.post('/users', (req, res) => {
+        console.log('Hitting on the Server');
+        res.send('Hitting on the Server');
 })
 
 app.get('/users/:id', (req, res) => {
